@@ -28,15 +28,13 @@ size_t getSizeTree(tree t);
 
 tree createEmptyTree();
 
-tree *allocateMemoryForTree(size_t n);
-
-void freeTreeMemory(tree *t);
-
-void reallocateMemory(tree *t, size_t n);
-
 node getNodeTreeByIndex(tree t, size_t i);
 
 node getCurrentNodeTree(tree t);
+
+node *getLinkNodeTreeByIndex(tree *t, size_t i);
+
+node *getLinkCurrentNodeTree(tree *t);
 
 void moveCurrentIndexToRightChild(tree *t);
 
@@ -45,8 +43,6 @@ void moveCurrentIndexToLeftChild(tree *t);
 bool existLeftSon(tree t, size_t indexParent);
 
 bool existRightSon(tree t, size_t indexParent);
-
-tree *createTreeFromArray(T *a, size_t n);
 
 void backToParentFromLeftChild(tree *t);
 
@@ -61,5 +57,31 @@ void excludeNodeByIndex(tree *t, size_t i);
 void excludeCurrentNodeTree(tree *t);
 
 node *getData(tree *t);
+
+tree *allocateMemoryForTree(size_t n);
+
+void freeTreeMemory(tree *t);
+
+void reallocateMemory(tree *t, size_t n);
+
+tree *createTreeFromArray(T *a, size_t n);
+
+tree *createTreeFromArrayNodes(node *a, size_t n);
+
+void moveCurrentIndexToNext(tree *t);
+
+void setValueTreeByIndex(tree *t, size_t i, T value);
+
+void setRoot(tree *t, T value);
+
+bool isEqualTrees(tree t1, tree t2);
+
+void writeIndices(size_t *a, size_t n);
+
+size_t findMax(node *source, size_t *other, int n);
+
+tree *unionTreesByRoot(tree leftTree, tree rightTree, T root);
+
+tree *write
 
 #endif //LABA7_TREE_H

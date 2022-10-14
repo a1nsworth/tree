@@ -346,6 +346,295 @@ void test_backToParentFromCurrent() {
     test_backToParentFromCurrent_fromRightChild();
 }
 
+void test_isEqualsTrees_twoEmpty() {
+    // Arrange
+    tree a = createEmptyTree();
+    tree b = createEmptyTree();
+    bool expected = true;
+
+    // Act
+    bool actual = isEqualTrees(a, b);
+
+    // Asserts
+    assert(IS_EQUAL(actual, expected));
+}
+
+void test_isEqualsTrees_beginNotEqual() {
+    // Arrange
+    tree *a = createTreeFromArrayNodes((node[]) {{1, true},
+                                                 {2, false},
+                                                 {3, true},
+                                                 {4, false},
+                                                 {5, true},
+                                                 {6, false}}, 6);
+    tree *b = createTreeFromArrayNodes((node[]) {{0, true},
+                                                 {2, false},
+                                                 {3, true},
+                                                 {4, false},
+                                                 {5, true},
+                                                 {6, false}}, 6);
+    bool expected = false;
+
+    // Act
+    bool actual = isEqualTrees(*a, *b);
+
+    // Asserts
+    assert(IS_EQUAL(actual, expected));
+}
+
+void test_isEqualsTrees_endNotEqual() {
+    // Arrange
+    tree *a = createTreeFromArrayNodes((node[]) {{1, true},
+                                                 {2, false},
+                                                 {3, true},
+                                                 {4, false},
+                                                 {5, true},
+                                                 {6, true}}, 6);
+    tree *b = createTreeFromArrayNodes((node[]) {{1,  true},
+                                                 {2,  false},
+                                                 {3,  true},
+                                                 {4,  false},
+                                                 {5,  true},
+                                                 {10, true}}, 6);
+    bool expected = false;
+
+    // Act
+    bool actual = isEqualTrees(*a, *b);
+
+    // Asserts
+    assert(IS_EQUAL(actual, expected));
+}
+
+void test_isEqualsTrees() {
+    test_isEqualsTrees_twoEmpty();
+    test_isEqualsTrees_beginNotEqual();
+    test_isEqualsTrees_endNotEqual();
+}
+
+void test_unionTreesByRoot_twoEmpty() {
+    // Arrange
+    tree a = createEmptyTree();
+    tree b = createEmptyTree();
+    int root = 42;
+
+    // Act
+    tree *actual = unionTreesByRoot(a, b, root);
+
+    // Asserts
+    assert(IS_EQUAL(getSizeTree(*actual), 1));
+    assert(IS_EQUAL(getCurrentNodeTree(*actual).value, root));
+    assert(isBelong(getCurrentNodeTree(*actual)));
+
+    freeTreeMemory(actual);
+}
+
+void test_unionTreesByRoot_rightTreeEmpty() {
+    // Arrange
+    tree *leftTree = createTreeFromArrayNodes((node[]) {{1, true},
+                                                        {2, true},
+                                                        {3, true}
+    }, 3);
+    tree rightTree = createEmptyTree();
+    int root = 42;
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {root, true},
+            {1,    true},
+            {0,    false},
+            {2,    true},
+            {3,    true},}, 5);
+
+    // Act
+    tree *actual = unionTreesByRoot(*leftTree, rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(leftTree);
+}
+
+void test_unionTreesByRoot_leftTreeEmpty() {
+    // Arrange
+    tree leftTree = createEmptyTree();
+    tree *rightTree = createTreeFromArrayNodes((node[]) {{1, true},
+                                                         {2, true},
+                                                         {3, true},}, 4);
+    int root = 42;
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {root, true},
+            {0,    false},
+            {1,    true},
+            {0,    false},
+            {0,    false},
+            {2,    true},
+            {3,    true},}, 7);
+
+    // Act
+    tree *actual = unionTreesByRoot(leftTree, *rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(rightTree);
+}
+
+void test_unionTreesByRoot_twoWithOneElement() {
+    // Arrange
+    tree *leftTree = createTreeFromArray((int[]) {10}, 1);
+    tree *rightTree = createTreeFromArray((int[]) {123}, 1);
+    int root = 42;
+    tree *expected = createTreeFromArray((int[]) {root, 10, 123}, 3);
+
+    // Act
+    tree *actual = unionTreesByRoot(*leftTree, *rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(leftTree);
+    freeTreeMemory(rightTree);
+}
+
+void test_unionTreesByRoot_rightWithOneElementAndLeftEmpty() {
+    // Arrange
+    tree leftTree = createEmptyTree();
+    tree *rightTree = createTreeFromArray((int[]) {123}, 1);
+    int root = 42;
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {root, true},
+            {0,    false},
+            {123,  true},
+    }, 3);
+
+    // Act
+    tree *actual = unionTreesByRoot(leftTree, *rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(rightTree);
+}
+
+void test_unionTreesByRoot_leftWithOneElementAndRightEmpty() {
+    // Arrange
+    tree *leftTree = createTreeFromArray((int[]) {123}, 1);
+    tree rightTree = createEmptyTree();
+    int root = 42;
+    tree *expected = createTreeFromArray((int[]) {root, 123}, 2);
+
+    // Act
+    tree *actual = unionTreesByRoot(*leftTree, rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(leftTree);
+}
+
+void test_unionTreesByRoot_twoLargeTree() {
+    // Arrange
+    tree *leftTree = createTreeFromArray((int[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
+    tree *rightTree = createTreeFromArray((int[]) {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}, 10);
+    int root = 42;
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {root, true},
+            {0,    true},
+            {1,    true},
+            {2,    true},
+            {4,    true},
+            {3,    true},
+            {5,    true},
+            {6,    true},
+            {8,    true},
+            {10,   true},
+            {12,   true},
+            {7,    true},
+            {9,    true},
+            {11,   true},
+            {13,   true},
+            {14,   true},
+            {16,   true},
+            {18,   true},
+            {0,    false},
+            {0,    false},
+            {0,    false},
+            {0,    false},
+            {0,    false},
+            {15,   true},
+            {17,   true},
+            {19,   true}
+    }, 26);
+
+    // Act
+    tree *actual = unionTreesByRoot(*leftTree, *rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(leftTree);
+    freeTreeMemory(rightTree);
+}
+
+void test_unionTreesByRoot_leftLargeTreeRightWithOne() {
+    // Arrange
+    tree *leftTree = createTreeFromArray((int[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
+    tree *rightTree = createTreeFromArray((int[]) {99}, 1);
+    int root = 42;
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {root, true},
+            {0,    true},
+            {99,   true},
+            {2,    true},
+            {4,    true},
+            {0,    false},
+            {0,    false},
+            {6,    true},
+            {8,    true},
+            {10,   true},
+            {12,   true},
+            {0,    false},
+            {0,    false},
+            {0,    false},
+            {0,    false},
+            {14,   true},
+            {16,   true},
+            {18,   true}
+    }, 18);
+
+    // Act
+    tree *actual = unionTreesByRoot(*leftTree, *rightTree, root);
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(actual);
+    freeTreeMemory(expected);
+    freeTreeMemory(leftTree);
+    freeTreeMemory(rightTree);
+}
+
+void test_unionTreesByRoot() {
+    test_unionTreesByRoot_twoEmpty();
+    test_unionTreesByRoot_rightTreeEmpty();
+    test_unionTreesByRoot_leftTreeEmpty();
+    test_unionTreesByRoot_twoWithOneElement();
+    test_unionTreesByRoot_rightWithOneElementAndLeftEmpty();
+    test_unionTreesByRoot_leftWithOneElementAndRightEmpty();
+    test_unionTreesByRoot_twoLargeTree();
+    test_unionTreesByRoot_leftLargeTreeRightWithOne();
+}
+
 void test_tree() {
     test_emptyTree();
     test_setCurrentIndexNode();
@@ -358,4 +647,6 @@ void test_tree() {
     test_moveCurrentIndexToRightChild();
     test_backToRoot();
     test_backToParentFromCurrent();
+    test_isEqualsTrees();
+    test_unionTreesByRoot();
 }

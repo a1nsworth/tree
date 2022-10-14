@@ -12,6 +12,8 @@
 
 typedef int T;
 
+int max_int(int a, int b);
+
 typedef struct node {
     T value;
     bool isBelong;
