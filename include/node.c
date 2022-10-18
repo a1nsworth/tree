@@ -39,3 +39,7 @@ node createWithValueAndInclude(T value) {
 int max_int(int a, int b) {
     return a > b ? a : b;
 }
+
+void outputNode(node n) {
+    printf("%c|%s", n.value, isBelong(n) ? "true" : "false");
+}

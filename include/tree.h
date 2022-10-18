@@ -6,11 +6,13 @@
 #define LABA7_TREE_H
 
 #include "node.h"
+#include "stackVoid.h"
 
 #define GET_INDEX_LEFT_CHILD(root) ((root << 1) + 1)
 #define GET_INDEX_RIGHT_CHILD(root) ((root << 1) + 2)
 #define LEFT_CHILD_STEP 1
 #define RIGHT_CHILD_STEP 2
+
 
 typedef struct tree {
     node *data;
@@ -23,6 +25,8 @@ bool emptyTree(tree t);
 size_t getCurrentIndex(tree t);
 
 void setCurrentIndexNode(tree *t, size_t newIndex);
+
+void setNodeToCurrentIndex(tree *t, node n);
 
 size_t getSizeTree(tree t);
 
@@ -82,6 +86,16 @@ size_t findMax(node *source, size_t *other, int n);
 
 tree *unionTreesByRoot(tree leftTree, tree rightTree, T root);
 
-tree *write
+void pushBackNode(tree *t, node n);
+
+bool isOperation(char c);
+
+bool isDigit(char c);
+
+size_t strlen(char *begin);
+
+tree *writeDirectPolishNotation(char *s);
+
+void outputTree(tree t);
 
 #endif //LABA7_TREE_H

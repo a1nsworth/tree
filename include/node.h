@@ -10,7 +10,7 @@
 #include <malloc.h>
 #include <assert.h>
 
-typedef int T;
+typedef char T;
 
 int max_int(int a, int b);
 
@@ -34,5 +34,7 @@ node createEmptyNode();
 node createWithValueWithoutInclude(T value);
 
 node createWithValueAndInclude(T value);
+
+void outputNode(node n);
 
 #endif //LABA7_node_H

@@ -77,7 +77,7 @@ void test_createTreeFromArray() {
     // Arrange
 
     // Act
-    tree *actual = createTreeFromArray((int[]) {1, 2, 3, 4, 5}, 5);
+    tree *actual = createTreeFromArray((char[]) {1, 2, 3, 4, 5}, 5);
 
     // Asserts
     assert(IS_EQUAL(getSizeTree(*actual), 5));
@@ -92,7 +92,7 @@ void test_createTreeFromArray() {
 
 void test_getCurrentNodeTree_end() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5}, 5);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5}, 5);
     setCurrentIndexNode(t, getSizeTree(*t) - 1);
     node expected = {5, true};
 
@@ -108,7 +108,7 @@ void test_getCurrentNodeTree_end() {
 
 void test_getCurrentNodeTree_begin() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5}, 5);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5}, 5);
     node expected = {1, true};
 
     // Act
@@ -123,7 +123,7 @@ void test_getCurrentNodeTree_begin() {
 
 void test_moveCurrentIndexToRightChild_moveFromRoot() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5}, 5);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5}, 5);
     node expected = {3, true};
 
     // Act
@@ -138,7 +138,7 @@ void test_moveCurrentIndexToRightChild_moveFromRoot() {
 
 void test_moveCurrentIndexToRightChild_moveFromRoot2() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}, 17);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}, 17);
     node expected = {7, true};
 
     // Act
@@ -155,7 +155,8 @@ void test_moveCurrentIndexToRightChild_moveFromRoot2() {
 void test_moveCurrentIndexToRightChild_moveFromRoot3() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27},
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                      27},
             27);
     node expected = {15, true};
 
@@ -174,9 +175,9 @@ void test_moveCurrentIndexToRightChild_moveFromRoot3() {
 void test_moveCurrentIndexToRightChild_moveToLastRightChild() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                     28,
-                     29, 30, 31}, 31);
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                      28,
+                      29, 30, 31}, 31);
     node expected = {31, true};
 
     // Act
@@ -194,7 +195,7 @@ void test_moveCurrentIndexToRightChild_moveToLastRightChild() {
 
 void test_moveCurrentIndexToLeftChild_moveFromRoot() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5}, 5);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5}, 5);
     node expected = {2, true};
 
     // Act
@@ -209,7 +210,7 @@ void test_moveCurrentIndexToLeftChild_moveFromRoot() {
 
 void test_moveCurrentIndexToLeftChild_moveFromRoot2() {
     // Arrange
-    tree *t = createTreeFromArray((int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17}, 17);
+    tree *t = createTreeFromArray((char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17}, 17);
     node expected = {4, true};
 
     // Act
@@ -226,7 +227,8 @@ void test_moveCurrentIndexToLeftChild_moveFromRoot2() {
 void test_moveCurrentIndexToLeftChild_moveLeftRoot3() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27},
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                      27},
             27);
     node expected = {8, true};
 
@@ -245,9 +247,9 @@ void test_moveCurrentIndexToLeftChild_moveLeftRoot3() {
 void test_moveCurrentIndexToLeftChild_moveToLastLeftChild() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                     28,
-                     29, 30, 31}, 31);
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                      28,
+                      29, 30, 31}, 31);
     node expected = {16, true};
 
     // Act
@@ -280,8 +282,8 @@ void test_moveCurrentIndexToLeftChild() {
 void test_backToRoot() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                     28, 29, 30, 31}, 31);
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                      28, 29, 30, 31}, 31);
     moveCurrentIndexToLeftChild(t);
     moveCurrentIndexToLeftChild(t);
     moveCurrentIndexToLeftChild(t);
@@ -302,8 +304,8 @@ void test_backToRoot() {
 void test_backToParentFromCurrent_fromLeftChild() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                     28, 29, 30, 31}, 31);
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                      28, 29, 30, 31}, 31);
     moveCurrentIndexToLeftChild(t);
     moveCurrentIndexToLeftChild(t);
     moveCurrentIndexToLeftChild(t);
@@ -323,8 +325,8 @@ void test_backToParentFromCurrent_fromLeftChild() {
 void test_backToParentFromCurrent_fromRightChild() {
     // Arrange
     tree *t = createTreeFromArray(
-            (int[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                     28, 29, 30, 31}, 31);
+            (char[]) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                      28, 29, 30, 31}, 31);
     moveCurrentIndexToRightChild(t);
     moveCurrentIndexToRightChild(t);
     moveCurrentIndexToRightChild(t);
@@ -415,7 +417,7 @@ void test_unionTreesByRoot_twoEmpty() {
     // Arrange
     tree a = createEmptyTree();
     tree b = createEmptyTree();
-    int root = 42;
+    char root = 42;
 
     // Act
     tree *actual = unionTreesByRoot(a, b, root);
@@ -435,7 +437,7 @@ void test_unionTreesByRoot_rightTreeEmpty() {
                                                         {3, true}
     }, 3);
     tree rightTree = createEmptyTree();
-    int root = 42;
+    char root = 42;
     tree *expected = createTreeFromArrayNodes((node[]) {
             {root, true},
             {1,    true},
@@ -460,7 +462,7 @@ void test_unionTreesByRoot_leftTreeEmpty() {
     tree *rightTree = createTreeFromArrayNodes((node[]) {{1, true},
                                                          {2, true},
                                                          {3, true},}, 4);
-    int root = 42;
+    char root = 42;
     tree *expected = createTreeFromArrayNodes((node[]) {
             {root, true},
             {0,    false},
@@ -476,17 +478,17 @@ void test_unionTreesByRoot_leftTreeEmpty() {
     // Asserts
     assert(isEqualTrees(*actual, *expected));
 
-    freeTreeMemory(actual);
+//    freeTreeMemory(actual);
     freeTreeMemory(expected);
     freeTreeMemory(rightTree);
 }
 
 void test_unionTreesByRoot_twoWithOneElement() {
     // Arrange
-    tree *leftTree = createTreeFromArray((int[]) {10}, 1);
-    tree *rightTree = createTreeFromArray((int[]) {123}, 1);
-    int root = 42;
-    tree *expected = createTreeFromArray((int[]) {root, 10, 123}, 3);
+    tree *leftTree = createTreeFromArray((char[]) {10}, 1);
+    tree *rightTree = createTreeFromArray((char[]) {123}, 1);
+    char root = 42;
+    tree *expected = createTreeFromArray((char[]) {root, 10, 123}, 3);
 
     // Act
     tree *actual = unionTreesByRoot(*leftTree, *rightTree, root);
@@ -503,8 +505,8 @@ void test_unionTreesByRoot_twoWithOneElement() {
 void test_unionTreesByRoot_rightWithOneElementAndLeftEmpty() {
     // Arrange
     tree leftTree = createEmptyTree();
-    tree *rightTree = createTreeFromArray((int[]) {123}, 1);
-    int root = 42;
+    tree *rightTree = createTreeFromArray((char[]) {123}, 1);
+    char root = 42;
     tree *expected = createTreeFromArrayNodes((node[]) {
             {root, true},
             {0,    false},
@@ -524,10 +526,10 @@ void test_unionTreesByRoot_rightWithOneElementAndLeftEmpty() {
 
 void test_unionTreesByRoot_leftWithOneElementAndRightEmpty() {
     // Arrange
-    tree *leftTree = createTreeFromArray((int[]) {123}, 1);
+    tree *leftTree = createTreeFromArray((char[]) {123}, 1);
     tree rightTree = createEmptyTree();
-    int root = 42;
-    tree *expected = createTreeFromArray((int[]) {root, 123}, 2);
+    char root = 42;
+    tree *expected = createTreeFromArray((char[]) {root, 123}, 2);
 
     // Act
     tree *actual = unionTreesByRoot(*leftTree, rightTree, root);
@@ -542,9 +544,9 @@ void test_unionTreesByRoot_leftWithOneElementAndRightEmpty() {
 
 void test_unionTreesByRoot_twoLargeTree() {
     // Arrange
-    tree *leftTree = createTreeFromArray((int[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
-    tree *rightTree = createTreeFromArray((int[]) {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}, 10);
-    int root = 42;
+    tree *leftTree = createTreeFromArray((char[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
+    tree *rightTree = createTreeFromArray((char[]) {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}, 10);
+    char root = 42;
     tree *expected = createTreeFromArrayNodes((node[]) {
             {root, true},
             {0,    true},
@@ -588,9 +590,9 @@ void test_unionTreesByRoot_twoLargeTree() {
 
 void test_unionTreesByRoot_leftLargeTreeRightWithOne() {
     // Arrange
-    tree *leftTree = createTreeFromArray((int[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
-    tree *rightTree = createTreeFromArray((int[]) {99}, 1);
-    int root = 42;
+    tree *leftTree = createTreeFromArray((char[]) {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, 10);
+    tree *rightTree = createTreeFromArray((char[]) {99}, 1);
+    char root = 42;
     tree *expected = createTreeFromArrayNodes((node[]) {
             {root, true},
             {0,    true},
@@ -635,6 +637,131 @@ void test_unionTreesByRoot() {
     test_unionTreesByRoot_leftLargeTreeRightWithOne();
 }
 
+void test_writeDirectPolishNotation_1() {
+    // Arrange
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {'+', true},
+            {'*', true},
+            {'1', true},
+            {'1', true},
+            {'2', true},
+    }, 5);
+
+    // Act
+    tree *actual = writeDirectPolishNotation("+*121");
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(expected);
+    freeTreeMemory(actual);
+}
+
+void test_writeDirectPolishNotation_2() {
+    // Arrange
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {'+', true},
+            {'*', true},
+            {'+', true},
+            {'+', true},
+            {'2', true},
+            {'*', true},
+            {'1', true},
+            {'*', true},
+            {'2', true},
+            {'x', false},
+            {'x', false},
+            {'2', true},
+            {'3', true},
+            {'x', false},
+            {'x', false},
+            {'1', true},
+            {'3', true},
+    }, 17);
+
+    // Act
+    tree *actual = writeDirectPolishNotation("++1*23*2+2*13");
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(expected);
+    freeTreeMemory(actual);
+}
+
+void test_writeDirectPolishNotation_3() {
+    // Arrange
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {'*', true},
+            {'1', true},
+            {'2', true}
+    }, 3);
+
+    // Act
+    tree *actual = writeDirectPolishNotation("*12");
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(expected);
+    freeTreeMemory(actual);
+}
+
+void test_writeDirectPolishNotation_4() {
+    // Arrange
+    tree *expected = createTreeFromArrayNodes((node[]) {
+            {'*', true},
+            {'+', true},
+            {'6', true},
+            {'+', true},
+            {'5', true},
+            {'x', false},
+            {'x', false},
+            {'+', true},
+            {'4', true},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'*', true},
+            {'3', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'x', false},
+            {'1', true},
+            {'2', true},
+    }, 33);
+
+    // Act
+    tree *actual = writeDirectPolishNotation("*+++*123456");
+
+    // Asserts
+    assert(isEqualTrees(*actual, *expected));
+
+    freeTreeMemory(expected);
+    freeTreeMemory(actual);
+}
+
+void test_writeDirectPolishNotation() {
+    test_writeDirectPolishNotation_1();
+    test_writeDirectPolishNotation_2();
+    test_writeDirectPolishNotation_3();
+    test_writeDirectPolishNotation_4();
+}
+
 void test_tree() {
     test_emptyTree();
     test_setCurrentIndexNode();
@@ -649,4 +776,5 @@ void test_tree() {
     test_backToParentFromCurrent();
     test_isEqualsTrees();
     test_unionTreesByRoot();
+    test_writeDirectPolishNotation();
 }

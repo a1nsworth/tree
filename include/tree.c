@@ -252,3 +252,111 @@ size_t findMax(node *source, size_t *other, int n) {
 
     return 0;
 }
+
+void setNodeToCurrentIndex(tree *t, node n) {
+    assert(!emptyTree(*t));
+    t->data[getCurrentIndex(*t)] = n;
+}
+
+bool isOperation(char c) {
+    switch (c) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            return true;
+        default:
+            return false;
+    }
+}
+
+void pushBackNode(tree *t, node n) {
+    reallocateMemory(t, getSizeTree(*t) + 1);
+    t->data[getSizeTree(*t) - (getSizeTree(*t) - 1 == 0)] = n;
+    includeNode(t->data + getSizeTree(*t) - (getSizeTree(*t) - 1 == 0));
+}
+
+size_t strlen(char *begin) {
+    register const char *end = begin;
+    while (*end != '\0')
+        end++;
+    return end - begin;
+}
+
+tree *writeDirectPolishNotation(char *s) {
+    assert(strlen(s) != 0);
+
+    stackVoid variables = createEmpty_stackVoid();
+    stackVoid trees = createEmpty_stackVoid();
+    stackVoid operations = createEmpty_stackVoid();
+
+    int i = strlen(s) - 1;
+    while (true) {
+        if (i < 0) {
+            if (empty_stackVoid(variables) && !empty_stackVoid(operations) && !empty_stackVoid(trees)) {
+                break;
+            } else if (empty_stackVoid(variables) && empty_stackVoid(operations) && !empty_stackVoid(trees))
+                break;
+        }
+
+        if (getSize_stackVoid(variables) >= 1 && (!empty_stackVoid(operations)) && !empty_stackVoid(trees)) {
+            tree *t1 = createTreeFromArray((char[]) {*((char *) top(variables))}, 1);
+            popBack_stackVoid(&variables);
+            tree *t2 = (tree *) top(trees);
+            popBack_stackVoid(&trees);
+
+            char root = *((char *) top(operations));
+            popBack_stackVoid(&operations);
+
+            pushBack_stackVoid(&trees, unionTreesByRoot(*t2, *t1, root));
+        } else if (getSize_stackVoid(variables) >= 2 && !empty_stackVoid(operations)) {
+            tree *t1 = createTreeFromArray((char[]) {*((char *) top(variables))}, 1);
+            popBack_stackVoid(&variables);
+            tree *t2 = createTreeFromArray((char[]) {*((char *) top(variables))}, 1);
+            popBack_stackVoid(&variables);
+
+            char root = *((char *) top(operations));
+            popBack_stackVoid(&operations);
+
+            pushBack_stackVoid(&trees, unionTreesByRoot(*t1, *t2, root));
+        }
+
+        if (i >= 0) {
+            if (isOperation(s[i])) {
+                pushBack_stackVoid(&operations, (void *) (s + i));
+            } else if (isDigit(s[i])) {
+                pushBack_stackVoid(&variables, (void *) (s + i));
+            }
+
+            i--;
+        }
+    }
+
+    while (getSize_stackVoid(trees) != 1) {
+        tree *t1 = (tree *) top(trees);
+        popBack_stackVoid(&trees);
+        tree *t2 = (tree *) top(trees);
+        popBack_stackVoid(&trees);
+
+        char root = *((char *) top(operations));
+        popBack_stackVoid(&operations);
+
+        pushBack_stackVoid(&trees, unionTreesByRoot(*t2, *t1, root));
+    }
+
+    return (tree *) top(trees);
+}
+
+bool isDigit(char c) {
+    return '0' <= c && c <= '9';
+}
+
+void outputTree(tree t) {
+    for (register size_t i = 0; i < getSizeTree(t); ++i) printf("%zu", i);
+
+    printf("%c", '\n');
+    for (register size_t i = 0; i < getSizeTree(t); ++i) {
+        outputNode(getCurrentNodeTree(t));
+        moveCurrentIndexToNext(&t);
+    }
+}
